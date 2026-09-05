@@ -24,8 +24,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm install
+      - run: sudo apt-get update && sudo apt-get install -y imagemagick
+      - run: convert -background none -resize 192x192 public/favicon.svg public/icon-192.png && convert -background none -resize 512x512 public/favicon.svg public/icon-512.png && convert -background none -resize 180x180 public/favicon.svg public/icon-180.png
       - run: npm test
-      - run: npm run build
+      - run: npx vite build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
